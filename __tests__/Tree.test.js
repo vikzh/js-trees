@@ -1,4 +1,4 @@
-import { mkNode, hasChildren } from '../src';
+import { mkNode, hasChildren, map } from '../src';
 
 describe('Tree', () => {
   let tree;
@@ -48,5 +48,31 @@ describe('Tree', () => {
     expect(hasChildren(tree)).toBe(true);
     const node = mkNode('tesstNode');
     expect(hasChildren(node)).toBe(false);
+  });
+
+  it('#map', () => {
+    const expectedTree = {
+      name: '/',
+      meta: {},
+      children: [
+        {
+          name: 'ETC',
+          meta: {},
+          children: [
+            {
+              name: 'LOCALTIME',
+              meta: {},
+              children: [],
+            },
+          ],
+        },
+        {
+          name: 'BIN',
+          meta: {},
+          children: [],
+        },
+      ],
+    };
+    expect(map(node => ({ ...node, name: node.name.toUpperCase() }), tree)).toEqual(expectedTree);
   });
 });
