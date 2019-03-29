@@ -19,6 +19,15 @@ const filter = (f, node) => {
   const children = node.children.map(n => filter(f, n)).filter(v => v);
   return { ...node, children };
 };
+
+const reduce = (f, tree, acc) => {
+  const newAcc = f(acc, tree);
+  if (!hasChildren(tree)) {
+    return newAcc;
+  }
+  return tree.children.reduce((dAcc, el) => reduce(f, el, dAcc), newAcc);
+};
+
 export {
-  mkNode, hasChildren, map, filter,
+  mkNode, hasChildren, map, filter, reduce,
 };

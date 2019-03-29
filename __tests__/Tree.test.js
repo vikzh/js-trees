@@ -1,5 +1,5 @@
 import {
-  mkNode, hasChildren, map, filter,
+  mkNode, hasChildren, map, filter, reduce,
 } from '../src';
 
 describe('Tree', () => {
@@ -96,5 +96,9 @@ describe('Tree', () => {
     };
     const filteredTree = filter(node => node.name.length < 4, tree);
     expect(filteredTree).toEqual(treeExpected);
+  });
+
+  it('#reduce', () => {
+    expect(reduce(n => n + 1, tree, 0)).toBe(4);
   });
 });
