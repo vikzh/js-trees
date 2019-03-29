@@ -9,4 +9,16 @@ const map = (f, node) => {
     : { ...updatedNode, children: node.children.map(el => map(f, el)) };
 };
 
-export { mkNode, hasChildren, map };
+const filter = (f, node) => {
+  if (!f(node)) {
+    return null;
+  }
+  if (!hasChildren(node)) {
+    return node;
+  }
+  const children = node.children.map(n => filter(f, n)).filter(v => v);
+  return { ...node, children };
+};
+export {
+  mkNode, hasChildren, map, filter,
+};

@@ -1,4 +1,6 @@
-import { mkNode, hasChildren, map } from '../src';
+import {
+  mkNode, hasChildren, map, filter,
+} from '../src';
 
 describe('Tree', () => {
   let tree;
@@ -11,7 +13,6 @@ describe('Tree', () => {
 
   it('#mkNode', () => {
     const node = mkNode('test');
-    console.log(node);
     const expected = {
       name: 'test',
       meta: {},
@@ -74,5 +75,26 @@ describe('Tree', () => {
       ],
     };
     expect(map(node => ({ ...node, name: node.name.toUpperCase() }), tree)).toEqual(expectedTree);
+  });
+
+  it('#filter', () => {
+    const treeExpected = {
+      name: '/',
+      meta: {},
+      children: [
+        {
+          name: 'etc',
+          meta: {},
+          children: [],
+        },
+        {
+          name: 'bin',
+          meta: {},
+          children: [],
+        },
+      ],
+    };
+    const filteredTree = filter(node => node.name.length < 4, tree);
+    expect(filteredTree).toEqual(treeExpected);
   });
 });
