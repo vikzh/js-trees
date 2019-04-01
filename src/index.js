@@ -28,6 +28,12 @@ const reduce = (f, tree, acc) => {
   return tree.children.reduce((dAcc, el) => reduce(f, el, dAcc), newAcc);
 };
 
+const findNodes = (comparator, tree) => reduce(
+  ((acc, node) => (comparator(node)
+    ? [...acc, node]
+    : acc)), tree, [],
+);
+
 export {
-  mkNode, hasChildren, map, filter, reduce,
+  mkNode, hasChildren, map, filter, reduce, findNodes,
 };
