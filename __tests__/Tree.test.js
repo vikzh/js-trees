@@ -52,29 +52,9 @@ describe('Tree', () => {
   });
 
   it('#map', () => {
-    const expectedTree = {
-      name: '/',
-      meta: {},
-      children: [
-        {
-          name: 'ETC',
-          meta: {},
-          children: [
-            {
-              name: 'LOCALTIME',
-              meta: {},
-              children: [],
-            },
-          ],
-        },
-        {
-          name: 'BIN',
-          meta: {},
-          children: [],
-        },
-      ],
-    };
-    expect(map(node => ({ ...node, name: node.name.toUpperCase() }), tree)).toEqual(expectedTree);
+    const mappedData = map(node => ({ ...node, name: node.name.toUpperCase() }), tree);
+    expect(mappedData).toHaveProperty('name', '/');
+    expect(mappedData).toHaveProperty(['children', '0', 'name'], 'ETC');
   });
 
   it('#filter', () => {
